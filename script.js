@@ -1,11 +1,11 @@
 // most important part of code . first er ta bujhle baki sob easy lagbe
 const showLoader = () => {
     document.getElementById("loader").classList.remove("hidden")
-    document.getElementById("video_container").classList.add("hidden")
+    document.getElementById("video-container").classList.add("hidden")
 }
 const hideLoader = () => {
     document.getElementById("loader").classList.add("hidden")
-    document.getElementById("video_container").classList.remove("hidden")
+    document.getElementById("video-container").classList.remove("hidden")
 }
 function removeActiveClass() {
     const activeButton = document.getElementsByClassName("active")
@@ -20,6 +20,7 @@ function loadCategories() {
 }
 
 function loadVideos(searchText = "") {
+    showLoader();
     fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then(res => res.json())
     .then(data => {
@@ -31,6 +32,7 @@ function loadVideos(searchText = "") {
 
 
 const loadCategoryVideos = (id) => {
+    showLoader();
     const url =`https://openapi.programming-hero.com/api/phero-tube/category/${id}`
     console.log(url);
     fetch(url)
@@ -90,6 +92,7 @@ function  displayCategories (categories){
         `
         categorieContainer.append(categoryDiv)
     }
+    
 }
 
 
@@ -107,6 +110,7 @@ if (videos.length == 0) {
     <h2 class="text-2xl font-bold">Ayy hayy bhai content to nai!!!</h2>
 </div> ;
     `
+    hideLoader();
     return;
 }
 videos.forEach(video => {
@@ -143,7 +147,7 @@ ${video.authors[0].verified == true ? ` <img src="https://img.icons8.com/?size=4
 
     videoContainer.append(videoCard)
 });
-
+hideLoader();
 };
 
 document.getElementById("search-input").addEventListener("keyup", (e) => {
